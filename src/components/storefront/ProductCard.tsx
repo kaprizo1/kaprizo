@@ -3,28 +3,40 @@ import { Heart, ShoppingCart, ExternalLink, ShieldCheck } from 'lucide-react';
 import { Product } from '@/types';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { useAffiliateClicks } from '@/hooks/useAffiliateClicks';
 
 interface ProductCardProps {
   product: Product;
   onClick: (product: Product) => void;
+  key?: string;
 }
 
 export function ProductCard({ product, onClick }: ProductCardProps) {
+  const { trackClick } = useAffiliateClicks();
+
+  const handleShopDeal = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    await trackClick(product);
+    if (product.affiliateUrl) {
+      window.open(product.affiliateUrl, '_blank');
+    }
+  };
+
   return (
     <div className="group flex flex-col bg-white dark:bg-zinc-950">
       <div className="relative overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-900 aspect-square max-h-[250px] cursor-pointer" onClick={() => onClick(product)}>
         {/* Image */}
-        <img 
-          src={product.image} 
+        <img
+          src={product.image}
           alt={product.name}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        
+
         {/* Top Left Badge */}
         {product.badge && (
           <div className="absolute left-3 top-3 z-10">
             <Badge variant={
-              product.badge === 'NEW' ? 'new' : 
+              product.badge === 'NEW' ? 'new' :
               product.badge === 'SALE' ? 'sale' : 'default'
             }>
               {product.badge}
@@ -44,7 +56,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
            </Button>
         </div>
       </div>
-      
+
       {/* Product Details Area */}
       <div className="mt-4 flex flex-col flex-1 px-1">
         <div className="flex flex-col gap-1.5 mb-2">
@@ -71,12 +83,12 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             ${product.price}
           </p>
         </div>
-        
+
         {/* Subtitle */}
         <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400 line-clamp-1">
           {product.subtitle}
         </p>
-        
+
         {/* Action Button */}
         <div className="mt-4">
            {product.type === 'direct' ? (
@@ -85,7 +97,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
                 Buy Now
               </Button>
            ) : (
-              <Button size="sm" variant="outline" className="w-full border-zinc-300 dark:border-zinc-700">
+              <Button size="sm" variant="outline" className="w-full border-zinc-300 dark:border-zinc-700" onClick={handleShopDeal}>
                 <ExternalLink className="mr-2 h-4 w-4" />
                 Shop Deal
               </Button>

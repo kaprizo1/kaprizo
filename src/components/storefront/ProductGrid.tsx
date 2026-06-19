@@ -30,7 +30,7 @@ export function ProductGrid({ products, onSelectProduct }: ProductGridProps) {
           <ProductCard 
             key={product.id} 
             product={product} 
-            onClick={onSelectProduct} 
+            onClick={onSelectProduct}
           />
         ))}
       </div>
