@@ -14,6 +14,7 @@ import {
 import { mockDashboardStats, mockProducts } from '@/data';
 import { MousePointerClick, DollarSign, Wallet, TrendingUp, ArrowUpRight } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
+import { SocialMediaManager } from '@/components/dashboard/SocialMediaManager';
 
 export function DashboardView() {
   const stats = mockDashboardStats;
@@ -133,6 +134,9 @@ export function DashboardView() {
         </div>
 
       </div>
+
+      {/* Social Media Manager */}
+      <SocialMediaManager />
     </div>
   );
 }

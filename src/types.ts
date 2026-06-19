@@ -1,5 +1,7 @@
 export type ProductType = 'direct' | 'affiliate';
 
+export type BadgeType = 'NEW' | 'SALE' | "Editor's Pick" | 'LIMITED EDITION';
+
 export interface Product {
   id: string;
   name: string;
@@ -7,7 +9,7 @@ export interface Product {
   price: number;
   image: string;
   type: ProductType;
-  badge?: 'NEW' | 'SALE' | "Editor's Pick";
+  badge?: BadgeType;
   rating: number;
   reviewCount: number;
   affiliateUrl?: string;
@@ -25,3 +27,13 @@ export interface DashboardStats {
 }
 
 export type ViewState = 'storefront' | 'dashboard' | 'product_details';
+
+export interface SocialMedia {
+  id: string;
+  name: string;
+  url: string;
+  icon: string;
+  active: boolean;
+  sort_order: number;
+  created_at: string;
+}

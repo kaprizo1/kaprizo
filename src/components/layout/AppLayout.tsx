@@ -1,6 +1,7 @@
 import React from 'react';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
+import { Footer } from './Footer';
 import { ViewState } from '@/types';
 
 interface AppLayoutProps {
@@ -21,7 +22,8 @@ export function AppLayout({ children, currentView, onChangeView }: AppLayoutProp
           <div className="mx-auto max-w-7xl">
             {children}
           </div>
-         </main>
+        </main>
+        {currentView !== 'dashboard' && <Footer />}
       </div>
     </div>
   );
