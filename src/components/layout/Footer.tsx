@@ -1,6 +1,7 @@
 import React from 'react';
 import { Facebook, Instagram, Youtube, Pin, Music } from 'lucide-react';
 import { useSocialMedia } from '@/hooks/useSocialMedia';
+import { useFooter } from '@/hooks/useFooter';
 
 const iconMap: Record<string, React.ElementType> = {
   Facebook,
@@ -10,80 +11,45 @@ const iconMap: Record<string, React.ElementType> = {
   Music,
 };
 
+const brandColors: Record<string, string> = {
+  Facebook: 'bg-[#1877F2] text-white hover:bg-[#166fe5]',
+  Instagram: 'bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white hover:opacity-90',
+  Youtube: 'bg-[#FF0000] text-white hover:bg-[#cc0000]',
+  Pin: 'bg-[#E60023] text-white hover:bg-[#bd001c]',
+  Music: 'bg-[#000000] text-white hover:bg-[#333333] dark:bg-[#000000] dark:hover:bg-[#1a1a1a]',
+};
+
 export function Footer() {
-  const { socials, loading } = useSocialMedia();
+  const { socials, loading: socialLoading } = useSocialMedia();
+  const { columns, loading: footerLoading } = useFooter();
+
   const activeSocials = socials.filter((s) => s.active).sort((a, b) => a.sort_order - b.sort_order);
+  const activeColumns = columns.filter((c) => c.active).sort((a, b) => a.sort_order - b.sort_order);
 
   return (
     <footer className="border-t border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
       <div className="mx-auto max-w-7xl px-4 md:px-8 py-12">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5">
-          {/* Customer Service */}
-          <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-zinc-900 mb-5 dark:text-zinc-50">
-              Customer Service
-            </h4>
-            <ul className="space-y-3">
-              <li>
-                <a href="#" className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors dark:text-zinc-400 dark:hover:text-zinc-50">
-                  Help Center
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors dark:text-zinc-400 dark:hover:text-zinc-50">
-                  Returns & Refunds
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors dark:text-zinc-400 dark:hover:text-zinc-50">
-                  Terms & Conditions
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Shopping with us */}
-          <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-zinc-900 mb-5 dark:text-zinc-50">
-              Shopping with us
-            </h4>
-            <ul className="space-y-3">
-              <li>
-                <a href="#" className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors dark:text-zinc-400 dark:hover:text-zinc-50">
-                  Payment options
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors dark:text-zinc-400 dark:hover:text-zinc-50">
-                  Delivery info
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Collaborate with us */}
-          <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-zinc-900 mb-5 dark:text-zinc-50">
-              Collaborate with us
-            </h4>
-            <ul className="space-y-3">
-              <li>
-                <a href="#" className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors dark:text-zinc-400 dark:hover:text-zinc-50">
-                  Affiliate program
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors dark:text-zinc-400 dark:hover:text-zinc-50">
-                  Partner with us
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors dark:text-zinc-400 dark:hover:text-zinc-50">
-                  Seller Login
-                </a>
-              </li>
-            </ul>
-          </div>
+          {/* Dynamic columns from database */}
+          {!footerLoading && activeColumns.map((col) => (
+            <div key={col.id}>
+              <h4 className="text-sm font-bold uppercase tracking-wider text-zinc-900 mb-5 dark:text-zinc-50">
+                {col.title}
+              </h4>
+              <ul className="space-y-3">
+                {col.links.map((link) => (
+                  <li key={link.id}>
+                    <a
+                      href={link.href}
+                      className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors dark:text-zinc-400 dark:hover:text-zinc-50"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
           {/* Pay with */}
           <div>
@@ -124,18 +90,19 @@ export function Footer() {
               Stay connected
             </h4>
             <div className="flex items-center gap-3">
-              {loading ? (
+              {socialLoading ? (
                 <span className="text-xs text-zinc-400">Loading...</span>
               ) : (
                 activeSocials.map((social) => {
                   const Icon = iconMap[social.icon] || Facebook;
+                  const brandColor = brandColors[social.icon] || '';
                   return (
                     <a
                       key={social.id}
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="h-9 w-9 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-600 hover:bg-zinc-900 hover:text-white transition-all dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-50 dark:hover:text-zinc-900"
+                      className={`h-9 w-9 rounded-full flex items-center justify-center transition-all ${brandColor}`}
                       aria-label={social.name}
                     >
                       <Icon className="h-4 w-4" />

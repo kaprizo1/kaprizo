@@ -12,6 +12,7 @@ export function FeaturedGrid({ products, onSelectProduct }: FeaturedGridProps) {
   const row1 = products.slice(0, 4);
   const row2 = products.slice(4, 8);
   const row3 = products.slice(8, 12);
+  const row4 = products.slice(12, 16);
 
   return (
     <div className="space-y-14">
@@ -64,6 +65,23 @@ export function FeaturedGrid({ products, onSelectProduct }: FeaturedGridProps) {
         </div>
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {row3.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onClick={onSelectProduct}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Section 4: Curated Picks */}
+      <div>
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-xl font-bold text-zinc-900 tracking-tight dark:text-zinc-50">Curated Picks</h2>
+          <Button variant="ghost" className="rounded-full px-5 text-zinc-500" size="sm">Explore All</Button>
+        </div>
+        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+          {row4.map((product) => (
             <ProductCard
               key={product.id}
               product={product}

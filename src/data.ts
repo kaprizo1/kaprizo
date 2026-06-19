@@ -217,6 +217,64 @@ export const mockProducts: Product[] = [
     description: 'A luxuriously soft sleep mask made from the finest 22 momme mulberry silk for the ultimate beauty sleep.',
     pros: ['Gentle on skin', 'Blocks all light', 'Adjustable strap'],
     cons: ['Requires hand washing', 'Slight color fading over time']
+  },
+  // Row 4 products
+  {
+    id: 'p17',
+    name: 'Ceramic Vase Set',
+    subtitle: 'Hand-thrown stoneware',
+    price: 68,
+    image: 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=800&q=80',
+    type: 'direct',
+    badge: 'NEW',
+    rating: 4.7,
+    reviewCount: 52,
+    description: 'A trio of organic-shaped ceramic vases in warm earth tones. Each piece is uniquely hand-thrown by artisans.',
+    pros: ['Unique organic shapes', 'Versatile sizing', 'Beautiful glaze finish'],
+    cons: ['Fragile during shipping', 'Limited batch sizes']
+  },
+  {
+    id: 'p18',
+    name: 'Leather Weekender',
+    subtitle: 'Full-grain travel bag',
+    price: 245,
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80',
+    type: 'affiliate',
+    badge: 'LIMITED EDITION',
+    rating: 4.8,
+    reviewCount: 31,
+    affiliateUrl: 'https://example.com/weekender',
+    description: 'A spacious weekender bag crafted from thick full-grain leather with brass hardware. Ages beautifully.',
+    pros: ['Generous capacity', 'Durable construction', 'Timeless design'],
+    cons: ['Heavy when fully packed', 'Premium price point']
+  },
+  {
+    id: 'p19',
+    name: 'Bamboo Cutting Board',
+    subtitle: 'End-grain butcher block',
+    price: 42,
+    image: 'https://images.unsplash.com/photo-1626139588087-248792dc9e1b?w=800&q=80',
+    type: 'direct',
+    badge: 'SALE',
+    rating: 4.5,
+    reviewCount: 178,
+    description: 'A thick end-grain bamboo cutting board that is gentle on knives and naturally antimicrobial.',
+    pros: ['Knife-friendly surface', 'Sustainable material', 'Easy to clean'],
+    cons: ['Requires regular oiling', 'Not dishwasher safe']
+  },
+  {
+    id: 'p20',
+    name: 'Wireless Earbuds Pro',
+    subtitle: 'Active noise cancellation',
+    price: 159,
+    image: 'https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=800&q=80',
+    type: 'affiliate',
+    rating: 4.6,
+    reviewCount: 412,
+    affiliateUrl: 'https://example.com/earbuds',
+    description: 'Premium true wireless earbuds with adaptive ANC, spatial audio, and 30-hour total battery life.',
+    pros: ['Crystal clear calls', 'Secure fit', 'Quick charge feature'],
+    cons: ['Case is slightly bulky', 'Touch controls can be sensitive']
   }
 ];
 
